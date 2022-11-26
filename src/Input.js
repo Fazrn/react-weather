@@ -5,7 +5,10 @@ export default function Input() {
   const [weather, setWeather] = useState({});
   const [city, setCity] = useState("");
   function showWeatherData(response) {
-    setWeather({ city: response.data.name, temp: response.data.main.temp });
+    setWeather({
+      city: response.data.name,
+      temp: Math.round(response.data.main.temp),
+    });
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,7 +31,7 @@ export default function Input() {
       </form>
       <ul>
         <li>{weather.city}</li>
-        <li>{Math.round(weather.temp)}</li>
+        <li>{weather.temp}</li>
       </ul>
     </div>
   );

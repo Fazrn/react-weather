@@ -4,7 +4,11 @@ function App() {
     <div>
       <Input />
       <p>
-        You can find the <i>open-source code</i> here.{" "}
+        You can find the{" "}
+        <a href="https://github.com/Fazrn/react-weather" target="_blank">
+          open-source code
+        </a>{" "}
+        here.{" "}
       </p>
     </div>
   );
