@@ -1,8 +1,11 @@
-import Input from "./Input";
+import Weather from "./Weather";
+import "bootstrap/dist/css/bootstrap.css";
+import "./Weather.css";
+
 function App() {
   return (
-    <div>
-      <Input />
+    <div className="container">
+      <Weather />
       <p>
         You can find the{" "}
         <a href="https://github.com/Fazrn/react-weather" target="_blank">

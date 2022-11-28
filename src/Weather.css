@@ -1,0 +1,9 @@
+body {
+  padding-top: 2em;
+}
+ul li {
+  list-style-type: none;
+}
+.weather {
+  border: 1px solid #7aa0a6;
+}
