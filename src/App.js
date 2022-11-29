@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 function App() {
   return (
     <div className="container">
-      <Weather defaultCity="Tehran" />
+      <Weather defaultCity="New York" />
       <p>
         You can find the{" "}
         <a

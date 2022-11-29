@@ -8,8 +8,12 @@ export default function Weather(props) {
   function handleResponse(response) {
     console.log(response.data);
     setWeatherData({
-      temperature: response.data.main.temp,
-      name: response.data.name,
+      temperature: response.data.temperature.current,
+      name: response.data.city,
+      description: response.data.condition.description,
+      wind: response.data.wind.speed,
+      humidity: response.data.temperature.humidity,
+      img: response.data.condition.icon_url,
     });
     setReady(true);
   }
@@ -38,8 +42,8 @@ export default function Weather(props) {
         <div className="row">
           <div className="col-7 d-inline-block">
             <img
-              src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-              alt="weather-icon"
+              src={weatherData.img}
+              alt={weatherData.description}
               className="ms-1"
             />
             <span className="temperature ">
@@ -55,18 +59,18 @@ export default function Weather(props) {
             </div>
           </div>
           <div className="col-5 date-desc-container">
-            <div className="city">Tehran</div>
+            <div className="city">{weatherData.name}</div>
             <ul className="date-desc">
               <li>Monday 7:00 pm</li>
-              <li>Mostly cloudy</li>
+              <li className="text-capitalize">{weatherData.description}</li>
             </ul>
           </div>
         </div>
       </div>
     );
   } else {
-    const apiKey = "ee5272dd791aed1aa1cefec0ce668f8d";
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.city}&appid=${apiKey}&units=metric`;
+    const apiKey = "dtf4dd4d48882e03b8030ob0a0b3714d";
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${props.defaultCity}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
     return <div>Loading ...</div>;
   }
