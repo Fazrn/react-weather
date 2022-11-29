@@ -4,10 +4,14 @@ import "bootstrap/dist/css/bootstrap.css";
 function App() {
   return (
     <div className="container">
-      <Weather />
+      <Weather defaultCity="Tehran" />
       <p>
         You can find the{" "}
-        <a href="https://github.com/Fazrn/react-weather" target="_blank">
+        <a
+          href="https://github.com/Fazrn/react-weather"
+          target="_blank"
+          rel="noreferrer"
+        >
           open-source code
         </a>{" "}
         here.{" "}
