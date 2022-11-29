@@ -20,7 +20,7 @@ export default function Weather(props) {
 
   if (ready) {
     return (
-      <div className="weather">
+      <div className="Weather">
         <form className="p-2">
           <div className="row">
             <div className="col-9">
