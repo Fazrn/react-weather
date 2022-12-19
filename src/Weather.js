@@ -1,33 +1,52 @@
 import React, { useState } from "react";
 import "./Weather.css";
 import axios from "axios";
+import Weatherinfo from "./Weatherinfo.js";
 
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [city, setCity] = useState(props.defaultCity);
   function handleResponse(response) {
     console.log(response.data);
     setWeatherData({
-      temperature: response.data.temperature.current,
-      name: response.data.city,
-      description: response.data.condition.description,
+      temperature: Math.round(response.data.main.temp),
+      name: response.data.name,
+      description: response.data.weather.description,
       wind: response.data.wind.speed,
-      humidity: response.data.temperature.humidity,
-      img: response.data.condition.icon_url,
+      humidity: response.data.main.humidity,
+      img: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+      date: new Date(response.data.dt * 1000),
     });
     setReady(true);
+  }
+
+  function search() {
+    const apiKey = "9feaf93d48daeaeeb2d9ea551226a8c4";
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleChange(event) {
+    setCity(event.target.value);
   }
 
   if (ready) {
     return (
       <div className="Weather">
-        <form className="p-2">
+        <form className="p-2" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-9">
               <input
                 placeholder="Enter a city ..."
                 type="search"
                 className="form-control"
+                onChange={handleChange}
               />
             </div>
             <div className="col-3">
@@ -39,39 +58,11 @@ export default function Weather(props) {
             </div>
           </div>
         </form>
-        <div className="row">
-          <div className="col-7 d-inline-block">
-            <img
-              src={weatherData.img}
-              alt={weatherData.description}
-              className="ms-1"
-            />
-            <span className="temperature ">
-              {Math.round(weatherData.temperature)}
-            </span>
-            <span className="unit ms-1">°C</span>
-            <div className="weather-data d-inline-block ms-2">
-              <ul>
-                <li>Precipitation: 0%</li>
-                <li>Humidity: 35%</li>
-                <li>Wind: 8 km/h</li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-5 date-desc-container">
-            <div className="city">{weatherData.name}</div>
-            <ul className="date-desc">
-              <li>Monday 7:00 pm</li>
-              <li className="text-capitalize">{weatherData.description}</li>
-            </ul>
-          </div>
-        </div>
+        <Weatherinfo weatherData={weatherData} />
       </div>
     );
   } else {
-    const apiKey = "dtf4dd4d48882e03b8030ob0a0b3714d";
-    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${props.defaultCity}&key=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
+    search();
     return <div>Loading ...</div>;
   }
 }
