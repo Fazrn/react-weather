@@ -37,10 +37,7 @@ ul li {
   font-size: 12px;
   line-height: 16px;
 }
-.Weather img {
-  height: 60px;
-  width: 60px;
-  margin-bottom: 2em;
+.Weather canvas {
 }
 .Weather .date-desc {
   font-size: 16px;
