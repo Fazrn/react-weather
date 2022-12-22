@@ -7,7 +7,7 @@ export default function Weatherinfo(props) {
   return (
     <div className="row">
       <div className="col-7 d-inline-block">
-        <WeatherIcon iconId={props.weatherData.img} />
+        <WeatherIcon iconId={props.weatherData.img} size={49} />
         <WeatherTemperature celsius={props.weatherData.temperature} />
 
         <div className="weather-data d-inline-block ms-2">
