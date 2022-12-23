@@ -19,7 +19,7 @@ export default function Weatherinfo(props) {
           </ul>
         </div>
       </div>
-      <div className="col-5 date-desc-container">
+      <div className="col-5 date-desc-container pt-3">
         <div className="city">{props.weatherData.name}</div>
         <ul className="date-desc">
           <FormattedDate date={props.weatherData.date} />

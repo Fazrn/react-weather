@@ -6,6 +6,7 @@ body {
 .Weather {
   border: 1px solid #7aa0a6;
   padding: 1em;
+  border-radius: 0.5em;
 }
 .Weather ul {
   color: #70757a;
