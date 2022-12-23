@@ -12,9 +12,8 @@ export default function Weatherinfo(props) {
 
         <div className="weather-data d-inline-block ms-2">
           <ul>
-            <li>Precipitation: 0%</li>
-            <li>Humidity: 35%</li>
-            <li>Wind: 8 km/h</li>
+            <li>Humidity: {props.weatherData.humidity}%</li>
+            <li>Wind: {Math.round(props.weatherData.wind)} km/h</li>
           </ul>
         </div>
       </div>
