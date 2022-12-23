@@ -5,6 +5,7 @@ body {
 
 .Weather {
   border: 1px solid #7aa0a6;
+  padding: 1em;
 }
 .Weather ul {
   color: #70757a;
@@ -34,11 +35,9 @@ ul li {
   top: -4px;
 }
 .Weather .weather-data {
-  font-size: 12px;
-  line-height: 16px;
+  margin-top: 1em;
 }
-.Weather canvas {
-}
+
 .Weather .date-desc {
   font-size: 16px;
   text-align: right !important;
