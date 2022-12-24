@@ -8,6 +8,7 @@ export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeatherData] = useState({});
   const [city, setCity] = useState(props.defaultCity);
+  const [cityInput, setCityInput] = useState("");
   function handleResponse(response) {
     console.log(response.data);
     setWeatherData({
@@ -21,6 +22,7 @@ export default function Weather(props) {
       date: new Date(response.data.dt * 1000),
     });
     setReady(true);
+    setCityInput("");
   }
 
   function search() {
@@ -36,6 +38,7 @@ export default function Weather(props) {
 
   function handleChange(event) {
     setCity(event.target.value);
+    setCityInput(event.target.value);
   }
 
   if (ready) {
@@ -49,6 +52,7 @@ export default function Weather(props) {
                 type="search"
                 className="form-control"
                 onChange={handleChange}
+                value={cityInput}
               />
             </div>
             <div className="col-3">
