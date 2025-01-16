@@ -9,6 +9,8 @@ export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({});
   const [city, setCity] = useState(props.defaultCity);
   const [cityInput, setCityInput] = useState("");
+  const [error, setError] = useState(null);
+
   function handleResponse(response) {
     console.log(response.data);
     setWeatherData({
@@ -20,15 +22,23 @@ export default function Weather(props) {
       humidity: response.data.main.humidity,
       img: response.data.weather[0].icon,
       date: new Date(response.data.dt * 1000),
+      condition: response.data.weather[0].main,
     });
     setReady(true);
     setCityInput("");
+    setError(null);
   }
 
   function search() {
     const apiKey = "9feaf93d48daeaeeb2d9ea551226a8c4";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
+    axios
+      .get(apiUrl)
+      .then(handleResponse)
+      .catch((error) => {
+        console.error("Error fetching weather data:", error);
+        setError("City not found. Please try again.");
+      });
   }
 
   function handleSubmit(event) {
@@ -41,9 +51,34 @@ export default function Weather(props) {
     setCityInput(event.target.value);
   }
 
+  function getBackgroundClass(weatherCondition) {
+    switch (weatherCondition) {
+      case "Clear":
+        return "bg-clear";
+      case "Clouds":
+        return "bg-cloudy";
+      case "Rain":
+        return "bg-rainy";
+      case "Snow":
+        return "bg-snowy";
+      case "Thunderstorm":
+        return "bg-thunderstorm";
+      case "Drizzle":
+        return "bg-drizzle";
+      case "Mist":
+      case "Fog":
+      case "Haze":
+        return "bg-misty";
+      default:
+        return "bg-default";
+    }
+  }
+
   if (ready) {
+    const backgroundClass = getBackgroundClass(weatherData.condition);
+
     return (
-      <div className="Weather">
+      <div className={`Weather ${backgroundClass}`}>
         <form className="p-2" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-9">
@@ -64,6 +99,8 @@ export default function Weather(props) {
             </div>
           </div>
         </form>
+        {error && <div className="alert alert-danger mt-3">{error}</div>}{" "}
+        {/* Display error message */}
         <Weatherinfo weatherData={weatherData} />
         <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
