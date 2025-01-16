@@ -2,3 +2,14 @@
   text-align: center;
   margin-top: 2em;
 }
+
+.weatherForecast .col {
+  margin: 0 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+}
+
+.weatherForecast .col:hover {
+  background-color: #e9ecef;
+}
